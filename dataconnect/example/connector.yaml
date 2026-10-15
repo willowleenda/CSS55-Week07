@@ -1,0 +1,9 @@
+connectorId: example
+generate:
+  javascriptSdk:
+    - outputDir: ..\..\codelab-friendlyeats-web\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\codelab-friendlyeats-web
+      react: true
+      angular: false
+      clientCache: {}
