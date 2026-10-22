@@ -38,54 +38,71 @@ export async function updateRestaurantImageReference(
 
 // define asynchronous helper that updates restaurant rating data
 const updateWithRating = async (
-  transaction,
-  docRef,
-  newRatingDocument,
-  review
+  transaction, // pass the firestore transaction
+  docRef, // pass the restaurant document reference
+  newRatingDocument, // pass the new review document reference
+  review // pass the review data
 ) => {
+  // get the current restaurant document inside the transaction
   const restaurant = await transaction.get(docRef);
+  // extract the data from the document
   const data = restaurant.data();
+  // calculate the new number of ratings
   const newNumRatings = data?.numRatings ? data.numRatings + 1 : 1;
+  // calculate the new sum of all ratings
   const newSumRating = (data?.sumRating || 0) + Number(review.rating);
+  // calculate the new average rating
   const newAverage = newSumRating / newNumRatings;
 
+  // update the restaurant document with the new rating stats
   transaction.update(docRef, {
-    numRatings: newNumRatings,
-    sumRating: newSumRating,
-    avgRating: newAverage,
+    numRatings: newNumRatings, // set new number of ratings
+    sumRating: newSumRating, // set new sum of ratings
+    avgRating: newAverage, // set new average rating
   });
 
+  // set the new review document in the subcollection
   transaction.set(newRatingDocument, {
-    ...review,
-    timestamp: Timestamp.fromDate(new Date()),
+    ...review, // spread the review text and rating
+    timestamp: Timestamp.fromDate(new Date()), // add the current timestamp
   });
 };
 
 // define asynchronous function that adds review to restaurant
 export async function addReviewToRestaurant(db, restaurantId, review) {
+  // check if restaurant id is missing
   if (!restaurantId) {
+    // throw error if no id
     throw new Error("No restaurant ID has been provided.");
   }
 
+  // check if review data is missing
   if (!review) {
+    // throw error if no review
     throw new Error("A valid review has not been provided.");
   }
 
+  // start try block to catch errors
   try {
+    // create reference to the restaurant document
     const docRef = doc(collection(db, "restaurants"), restaurantId);
+    // create a new reference for the review document
     const newRatingDocument = doc(
       collection(db, `restaurants/${restaurantId}/ratings`),
     );
 
     // corrected line
+    // run a transaction to update the restaurant and add the review safely
     await runTransaction(db, (transaction) =>
       updateWithRating(transaction, docRef, newRatingDocument, review),
     );
   } catch (error) {
+    // log error if transaction fails
     console.error(
       "There was an error adding the rating to the restaurant",
       error,
     );
+    // throw the error to the caller
     throw error;
   }
 }
