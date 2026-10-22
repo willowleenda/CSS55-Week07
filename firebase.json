@@ -1,7 +1,35 @@
 {
+<<<<<<< HEAD
   "firestore": {
     "database": "(default)",
     "location": "nam5",
+=======
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true,
+    "hosting": {
+      "port": 5000
+    }
+  },
+  "firestore": {
+>>>>>>> f25b93b943b07df43f4d53d868f6424a8f2474e0
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },

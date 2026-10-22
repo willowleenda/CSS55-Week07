@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -67,3 +68,11 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+=======
+lib/firebase/config.js
+.next/
+.firebase/
+node_modules/
+.env
+.firebaserc
+>>>>>>> f25b93b943b07df43f4d53d868f6424a8f2474e0

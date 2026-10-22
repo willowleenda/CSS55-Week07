@@ -5,6 +5,7 @@ rules_version = '2';
 //    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
   match /b/{bucket}/o {
+<<<<<<< HEAD
 
     // This rule allows anyone with your Storage bucket reference to view, edit,
     // and delete all data in your Storage bucket. It is useful for getting
@@ -20,3 +21,11 @@ service firebase.storage {
     }
   }
 }
+=======
+    match /{allPaths=**} {
+      allow read;
+      allow write: if request.auth.uid != null;
+    }
+  }
+}
+>>>>>>> f25b93b943b07df43f4d53d868f6424a8f2474e0
