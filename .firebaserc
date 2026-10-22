@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "cs55-week-7-assignment-8",
+    "assignment8": "cs55-week-7-assignment-8",
+    "friendlyeats-codelab": "cs55-week-7-assignment-8"
+  },
+  "targets": {},
+  "etags": {}
+}
