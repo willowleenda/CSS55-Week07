@@ -43,7 +43,7 @@ export async function GeminiSummary({ restaurantId }) {
 
     // call the gemini model to generate the summary text
     const response = await ai.models.generateContent({ 
-      model: 'gemini-2.0-flash', // specify the gemini model version
+      model: 'gemini-3.8-flash', // specify the gemini model version
       contents: prompt, // pass the constructed prompt
     }); 
 
